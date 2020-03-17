@@ -10,7 +10,7 @@ const App = () => (
     <Switch>
       <Route path="/" exact component={Join} />
       <ProtectedRoute path="/chat" component={Chat}></ProtectedRoute>
-      <ProtectedRoute path="/chat1" component={Chat}></ProtectedRoute>
+      {/* <ProtectedRoute path="/chat1" component={Chat}></ProtectedRoute> */}
       <Route path="*" component={() => "404 NOT FOUND"}></Route>
     </Switch>
   </Router>

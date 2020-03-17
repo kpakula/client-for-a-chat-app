@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import auth from "../../auth"
+import auth from "../../auth";
 import "./Join.css";
 
-const Join = (props) => {
+const Join = props => {
   const [name, setName] = useState("");
   // const [room, setRoom] = useState("");
-
 
   return (
     <div className="outer">
       <div className="inner">
         <h1 className="heading">Join</h1>
+
         <div>
           <input
             placeholder="name"
@@ -20,32 +20,33 @@ const Join = (props) => {
             onChange={event => setName(event.target.value)}
           />
         </div>
-        {/* <div>
-          <input
-            placeholder="room"
-            className="inputField mt-20"
-            type="text"
-            onChange={event => setRoom(event.target.value)}
-          />
-        </div> */}
-        {/* <Link
-          onClick={event => (!name ? event.preventDefault() : null)}
+
+        <Link
+          onClick={event => {
+            if (name) {
+              auth.login(() => {
+                console.log("Login...");
+              });
+            }
+          }}
           to={{
             pathname: "/chat",
             state: {
-              room: 'default',
+              room: "default",
               name: name
             }
           }}
         >
-          <button className="joinBtn mt-20" type="submit">Sign in</button>
-        </Link> */}
+          <button className="joinBtn mt-20" type="submit">
+            Sign in
+          </button>
+        </Link>
 
-        <button onClick={() => {
+        {/* <button onClick={() => {
             auth.login(() => {
               props.history.push("/chat")
             })
-        }}>Test Login</button>
+        }}>Test Login</button> */}
       </div>
     </div>
   );
