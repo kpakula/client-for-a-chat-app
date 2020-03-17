@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import auth from "../../auth"
 import "./Join.css";
 
-const Join = ({ children }) => {
+const Join = (props) => {
   const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
+  // const [room, setRoom] = useState("");
 
 
   return (
@@ -20,20 +20,32 @@ const Join = ({ children }) => {
             onChange={event => setName(event.target.value)}
           />
         </div>
-        <div>
+        {/* <div>
           <input
             placeholder="room"
             className="inputField mt-20"
             type="text"
             onChange={event => setRoom(event.target.value)}
           />
-        </div>
-        <Link
-          onClick={event => (!name || !room ? event.preventDefault() : null)}
-          to={`/chat?name=${name}&room=${room}`}
+        </div> */}
+        {/* <Link
+          onClick={event => (!name ? event.preventDefault() : null)}
+          to={{
+            pathname: "/chat",
+            state: {
+              room: 'default',
+              name: name
+            }
+          }}
         >
           <button className="joinBtn mt-20" type="submit">Sign in</button>
-        </Link>
+        </Link> */}
+
+        <button onClick={() => {
+            auth.login(() => {
+              props.history.push("/chat")
+            })
+        }}>Test Login</button>
       </div>
     </div>
   );
