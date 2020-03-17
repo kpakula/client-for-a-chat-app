@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import queryString from "query-string";
-import io from "socket.io-client";
+import './Chat.css';
 
-import Bar from "../Bar/Bar.js";
-import Input from "../Input/Input.js";
-import Messages from "../Messages/Messages.js";
-import "./Chat.css";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import io from 'socket.io-client';
+
+import Bar from '../Bar/Bar.js';
+import Input from '../Input/Input.js';
+import Messages from '../Messages/Messages.js';
 
 let socket;
 

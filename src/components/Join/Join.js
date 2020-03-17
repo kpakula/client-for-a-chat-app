@@ -1,53 +1,56 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import auth from "../../auth";
 import "./Join.css";
+
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+
+import auth from "../../auth";
 
 const Join = props => {
   const [name, setName] = useState("");
-  // const [room, setRoom] = useState("");
+  const [isAuthenticated, setAuthenticated] = useState(false);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    if (name) {
+      auth.login(() => {
+        console.log("Login...");
+        setAuthenticated(true);
+      });
+    }
+  };
+
+  const redirect = () => {
+    return {
+      pathname: "/chat",
+      state: {
+        room: "default",
+        name: name
+      }
+    };
+  };
 
   return (
     <div className="outer">
       <div className="inner">
         <h1 className="heading">Join</h1>
 
-        <div>
-          <input
-            placeholder="name"
-            className="inputField"
-            type="text"
-            onChange={event => setName(event.target.value)}
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              placeholder="name"
+              className="inputField"
+              type="text"
+              onChange={event => setName(event.target.value)}
+            />
+          </div>
 
-        <Link
-          onClick={event => {
-            if (name) {
-              auth.login(() => {
-                console.log("Login...");
-              });
-            }
-          }}
-          to={{
-            pathname: "/chat",
-            state: {
-              room: "default",
-              name: name
-            }
-          }}
-        >
           <button className="joinBtn mt-20" type="submit">
             Sign in
           </button>
-        </Link>
-
-        {/* <button onClick={() => {
-            auth.login(() => {
-              props.history.push("/chat")
-            })
-        }}>Test Login</button> */}
+        </form>
       </div>
+
+      {isAuthenticated && <Redirect to={redirect()} />}
     </div>
   );
 };
